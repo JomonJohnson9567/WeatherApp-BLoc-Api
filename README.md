@@ -1,6 +1,7 @@
 # wether_app
 
-A new Flutter project.
+This weather application provides real-time weather updates using data fetched from a public API via HTTP GET requests. It is built with Flutter and implements the BLoC (Business Logic Component) pattern for efficient state management, ensuring a smooth and reactive user experience. The app displays essential weather details like temperature, condition, humidity, wind speed, and more in an intuitive UI. Users can easily access current weather information for a specific location, and the architecture ensures clean separation of UI and logic for better scalability and maintainability.
+
 
 ## Getting Started
 
