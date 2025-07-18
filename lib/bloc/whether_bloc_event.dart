@@ -5,3 +5,11 @@ class FetchWeather extends WeatherEvent {
 
   FetchWeather(this.cityName);
 }
+
+class InitVideo extends WeatherEvent {}
+
+class PlayVideo extends WeatherEvent {}
+
+class PauseVideo extends WeatherEvent {}
+
+class DisposeVideo extends WeatherEvent {}
