@@ -77,52 +77,66 @@ class WeatherPage extends StatelessWidget {
                       const SizedBox(height: 40),
                       Expanded(
                         child: Center(
-                          child: RefreshIndicator(
-                            onRefresh: () async {
-                              context.read<WeatherBloc>().add(
-                                FetchWeather('Kochi'),
+                          child: BlocBuilder<WeatherBloc, WeatherState>(
+                            builder: (context, state) {
+                              String? cityName;
+                              if (state is WeatherLoaded) {
+                                cityName = state.weather.cityName;
+                              }
+                              return RefreshIndicator(
+                                onRefresh: () async {
+                                  // If cityName is not available, fallback to 'Kochi'
+                                  context.read<WeatherBloc>().add(
+                                    FetchWeather(cityName ?? 'Kochi'),
+                                  );
+                                },
+                                child: Builder(
+                                  builder: (context) {
+                                    if (state is WeatherLoading) {
+                                      return const Center(
+                                        child: CircularProgressIndicator(
+                                          strokeWidth: 30,
+                                          color: Color.fromARGB(
+                                            255,
+                                            115,
+                                            188,
+                                            218,
+                                          ),
+                                        ),
+                                      );
+                                    } else if (state is WeatherLoaded) {
+                                      final weather = state.weather;
+                                      return SingleChildScrollView(
+                                        physics:
+                                            const AlwaysScrollableScrollPhysics(),
+                                        child: Column(
+                                          children: [
+                                            WeatherMainInfo(weather: weather),
+                                            const SizedBox(height: 30),
+                                            WeatherInfoRows(
+                                              weather: weather,
+                                              formatTime: formatTime,
+                                            ),
+                                            const SizedBox(height: 20),
+                                          ],
+                                        ),
+                                      );
+                                    } else if (state is WeatherError) {
+                                      return Center(
+                                        child: Text(
+                                          state.message,
+                                          style: const TextStyle(
+                                            color: Colors.redAccent,
+                                            fontSize: 16,
+                                          ),
+                                        ),
+                                      );
+                                    }
+                                    return const SizedBox.shrink();
+                                  },
+                                ),
                               );
                             },
-                            child: BlocBuilder<WeatherBloc, WeatherState>(
-                              builder: (context, state) {
-                                if (state is WeatherLoading) {
-                                  return const Center(
-                                    child: CircularProgressIndicator(
-                                      strokeWidth: 30,
-                                      color: Color.fromARGB(255, 115, 188, 218),
-                                    ),
-                                  );
-                                } else if (state is WeatherLoaded) {
-                                  final weather = state.weather;
-                                  return SingleChildScrollView(
-                                    physics:
-                                        const AlwaysScrollableScrollPhysics(),
-                                    child: Column(
-                                      children: [
-                                        WeatherMainInfo(weather: weather),
-                                        const SizedBox(height: 30),
-                                        WeatherInfoRows(
-                                          weather: weather,
-                                          formatTime: formatTime,
-                                        ),
-                                        const SizedBox(height: 20),
-                                      ],
-                                    ),
-                                  );
-                                } else if (state is WeatherError) {
-                                  return Center(
-                                    child: Text(
-                                      state.message,
-                                      style: const TextStyle(
-                                        color: Colors.redAccent,
-                                        fontSize: 16,
-                                      ),
-                                    ),
-                                  );
-                                }
-                                return const SizedBox.shrink();
-                              },
-                            ),
                           ),
                         ),
                       ),
