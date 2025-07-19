@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class WeatherMainInfo extends StatelessWidget {
   final dynamic weather;
+  // ignore: use_super_parameters
   const WeatherMainInfo({Key? key, required this.weather}) : super(key: key);
 
   @override

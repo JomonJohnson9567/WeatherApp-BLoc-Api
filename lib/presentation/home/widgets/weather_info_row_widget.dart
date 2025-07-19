@@ -4,6 +4,7 @@ import 'package:wether_app/presentation/home/widgets/info_card_widget.dart';
 class WeatherInfoRows extends StatelessWidget {
   final dynamic weather;
   final String Function(int) formatTime;
+  // ignore: use_super_parameters
   const WeatherInfoRows({
     Key? key,
     required this.weather,

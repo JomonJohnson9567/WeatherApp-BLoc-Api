@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class InfoCard extends StatelessWidget {
   final String label;
   final String value;
+  // ignore: use_super_parameters
   const InfoCard({Key? key, required this.label, required this.value})
     : super(key: key);
 

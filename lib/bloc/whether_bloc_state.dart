@@ -10,6 +10,7 @@ abstract class WeatherVideoState extends WeatherState {
 }
 
 class WeatherInitial extends WeatherVideoState {
+  // ignore: use_super_parameters
   WeatherInitial({
     VideoPlayerController? videoController,
     bool videoInitialized = false,
@@ -20,6 +21,7 @@ class WeatherInitial extends WeatherVideoState {
 }
 
 class WeatherLoading extends WeatherVideoState {
+  // ignore: use_super_parameters
   WeatherLoading({
     VideoPlayerController? videoController,
     bool videoInitialized = false,
@@ -31,6 +33,7 @@ class WeatherLoading extends WeatherVideoState {
 
 class WeatherLoaded extends WeatherVideoState {
   final WeatherModel weather;
+  // ignore: use_super_parameters
   WeatherLoaded(
     this.weather, {
     VideoPlayerController? videoController,
@@ -43,6 +46,7 @@ class WeatherLoaded extends WeatherVideoState {
 
 class WeatherError extends WeatherVideoState {
   final String message;
+  // ignore: use_super_parameters
   WeatherError(
     this.message, {
     VideoPlayerController? videoController,
